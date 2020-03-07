@@ -1,16 +1,27 @@
+/**
+ * @package   ShellyActionRouter
+ * @copyright Thorsten Eurich
+ * @license   GNU Affero General Public License (https://www.gnu.org/licenses/agpl-3.0.de.html)
+ *
+ * @todo lots of documentation
+ *
+ * Simple Action Proxy written in Golang which makes it possible to execute multiple actions
+ */
+
 package main
 
 import (
-    "os"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"time"
-    "github.com/gorilla/mux"
-    "gopkg.in/ini.v1"
+
+	"github.com/gorilla/mux"
+	"gopkg.in/ini.v1"
 )
 
 var netClient = &http.Client{
@@ -23,22 +34,21 @@ type Unreachable struct {
 
 func main() {
 	cfg, err := ini.Load("actions.ini")
-    if err != nil {
-        fmt.Printf("Fail to read file: %v", err)
-        os.Exit(1)
-    }
+	if err != nil {
+		fmt.Printf("Fail to read file: %v", err)
+		os.Exit(1)
+	}
 	r := mux.NewRouter()
 
-    r.HandleFunc("/api/action/{title}", func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        title := vars["title"]
-        // names := cfg.SectionStrings()
-		// fmt.Println(names)
+	r.HandleFunc("/api/action/{title}", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		title := vars["title"]
+
 		keys := cfg.Section(title).Keys()
 
-		for _,url := range keys{
+		for _, url := range keys {
 			curl := fmt.Sprintf("%s", url)
-		
+
 			res, err := netClient.Get(curl)
 			if err != nil {
 				emp := Unreachable{Status: "offline"}
@@ -55,7 +65,7 @@ func main() {
 				fmt.Fprintf(w, string(body))
 			}
 		}
-    })
+	})
 
-    http.ListenAndServe(":8888", r)
+	http.ListenAndServe(":8888", r)
 }
