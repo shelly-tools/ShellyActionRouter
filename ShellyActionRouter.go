@@ -2,6 +2,7 @@
  * @package   ShellyActionRouter
  * @copyright Thorsten Eurich
  * @license   GNU Affero General Public License (https://www.gnu.org/licenses/agpl-3.0.de.html)
+ * @version  0.1
  *
  * @todo lots of documentation
  *
@@ -33,18 +34,26 @@ type Unreachable struct {
 }
 
 func main() {
-	cfg, err := ini.Load("actions.ini")
+	cfg, err := ini.Load("config.ini")
 	if err != nil {
 		fmt.Printf("Fail to read file: %v", err)
 		os.Exit(1)
 	}
+	port := cfg.Section("server").Key("port").String()
+
+	actions, err := ini.Load("actions.ini")
+	if err != nil {
+		fmt.Printf("Fail to read file: %v", err)
+		os.Exit(1)
+	}
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/action/{title}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		title := vars["title"]
 
-		keys := cfg.Section(title).Keys()
+		keys := actions.Section(title).Keys()
 
 		for _, url := range keys {
 			curl := fmt.Sprintf("%s", url)
@@ -67,5 +76,5 @@ func main() {
 		}
 	})
 
-	http.ListenAndServe(":8888", r)
+	http.ListenAndServe(":"+port, r)
 }
