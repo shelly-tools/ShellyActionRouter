@@ -209,7 +209,6 @@ func ShowUrl(w http.ResponseWriter, r *http.Request) {
 		empindex.Action = res
 
 	}
-	fmt.Println(empindex)
 	tmpl.ExecuteTemplate(w, "ShowUrl", empindex)
 	defer db.Close()
 }
