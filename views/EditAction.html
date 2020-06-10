@@ -1,0 +1,31 @@
+{{ define "EditAction" }}
+  {{ template "Header" }}
+<h5>Add Action</h5>
+	<form method="POST" action="/action/update?idurl= {{.IdUrl}}">
+		<input type="hidden" name="id" value="{{ .Id }}" />
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+				<label>Type</label>
+			</div>
+			<div class="form-group col-sm-4">
+				<select name="actiontype" class="form-control" id="actiontype">
+					<option value="" disabled>Choose device type</option>
+					<option value="url" {{if eq .ActionType "url" }} selected{{end}}>URL</option>
+					<option value="sleep" {{if eq .ActionType "sleep" }} selected{{end}}>sleep (in milliseconds)</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+				<label> Conent </label>
+			</div>
+			<div class="form-group col-sm-10">
+				<input  class="form-control" type="text" name="content" value="{{ .Content }}"  />
+			</div>
+		</div>
+		<div class="form-row">
+		<button class="btn btn-primary" type="submit" name="action"><i class="mdi mdi-content-save right"></i> save Action</button>
+	</div>
+</form><br />    
+  {{ template "Footer" }}
+{{ end }}

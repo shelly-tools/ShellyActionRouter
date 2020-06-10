@@ -1,0 +1,31 @@
+{{ define "AddAction" }}
+  {{ template "Header" }}
+   <h5>Add Action</h5>
+   <form method="POST" action="/action/insert">
+	 <input type="hidden" name="idurl" value="{{ . }}" />
+	 <div class="form-row">
+		<div class="form-group col-sm-2">
+			<label>Type</label>
+		</div>
+		<div class="form-group col-sm-4">
+			<select name="actiontype" class="form-control">
+				<option value="" disabled selected>Choose type</option>
+				<option value="url">URL</option>
+				<option value="sleep">Sleep (numeric value in milliseconds)</option>
+			</select>
+		</div>
+	 </div>
+	  <div class="form-row">
+		<div class="form-group col-sm-2">
+			<label>Content</label>
+		</div>
+		<div class="form-group col-sm-10">
+			<input class="form-control" type="text" name="content" /><br />
+		</div>
+	</div>
+	<div class="form-row">
+		<button class="btn btn-primary" type="submit" name="action"><i class="mdi mdi-content-save right"></i> save Action</button>
+	</div>
+    </form>
+  {{ template "Footer" }}
+{{ end }}

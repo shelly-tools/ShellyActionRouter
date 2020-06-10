@@ -1,0 +1,25 @@
+{{ define "ShowUrl" }}
+  {{ template "Header" }}
+  
+  <div class="row">
+    <div class="col">
+      <h5>{{ .Name }}</h5>
+    </div>
+    <div class="col text-right">
+     <span><a class="btn btn-success" href="/action/add?idurl={{ .Id }}"><i class="mdi mdi-plus"></i>Add Action</a></span>
+    </div>
+  </div>
+  <br>
+   {{ range .Action}}
+   		<div id="item-{{.Id}}" class="alert alert-secondary" role="alert">
+			{{if eq .ActionType "sleep" }} sleep {{ end }} {{.Content}} {{if eq .ActionType "sleep" }} milliseconds {{ end }}
+			<hr>
+			<a class="btn btn-danger btn-sm" href="/action/delete?id={{ .Id }}&idurl={{$.Id}}"><i class="mdi mdi-delete"></i> Delete</a>
+			<a class="btn btn-primary btn-sm" href="/action/edit?id={{ .Id }}"><i class="mdi mdi-circle-edit-outline"></i> Edit</a>
+		</div>
+	{{end}}
+
+
+	   
+  {{ template "Footer" }}
+{{ end }}

@@ -1,0 +1,21 @@
+{{ define "EditUrl" }}
+  {{ template "Header" }}
+	<h5>Edit URL</h5>   
+    <form method="POST" action="update">
+      <input type="hidden" name="uid" value="{{ .Id }}" />
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+				<label for="urlname">Name</label>
+			</div>
+			<div class="form-group col-sm-4">
+				<input class="form-control" type="text" name="urlname" value="{{ .Name }}"  />
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-sm-2">
+				<button class="btn btn-primary" type="submit" name="action"><i class="mdi mdi-content-save right"></i> save URL</button>
+			</div>
+		</div>
+    </form><br />
+  {{ template "Footer" }}
+{{ end }}

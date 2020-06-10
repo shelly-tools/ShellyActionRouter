@@ -1,0 +1,26 @@
+{{ define "Index" }}
+  {{ template "Header" }}
+	<ul class="list-unstyled">
+       {{ range . }} 
+		<li>
+			<div class="alert alert-secondary" role="alert">
+				<h4 class="alert-heading">{{.Name}}</h4>
+		 		{{.Url}}
+				<hr>
+		 		<span><a class="btn btn-success btn-sm" href="/url/show?idurl={{ .Id }}"><i class="mdi mdi-gesture-tap"></i> ADD / EDIT ACTIONS</a></span>
+				<span><a class="btn btn-danger btn-sm"  href="/url/delete?idurl={{ .Id }}"><i class="mdi mdi-delete"></i> DELETE URL</a></span>
+				<span><a class="btn btn-primary btn-sm"  href="/url/edit?idurl={{ .Id }}"><i class="mdi mdi-circle-edit-outline"></i> EDIT URL</a></span>
+			</div>
+		</li>
+	 {{ else }}
+	</ul>
+	<div class="alert alert-info" role="alert">
+		<h4 class="alert-heading">No urls defined yet!</h4>
+		Please <a href="/url/add">add</a> at least one URL. 
+	</div>
+</div>
+	
+	</div>
+    {{ end }}
+  {{ template "Footer" }}
+{{ end }}
