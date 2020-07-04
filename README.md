@@ -1,5 +1,7 @@
 # ShellyActionRouter
 ShellyActionRouter is a tiny action proxy written in Golang to allow multiple Actions per Shelly..  
+![ActionRouter1](https://github.com/shelly-tools/ShellyActionRouter/raw/master/screenshots/actionRouter1.jpg "")
+![ActionRouter1](https://github.com/shelly-tools/ShellyActionRouter/raw/master/screenshots/actionRouter2.jpg "")
 
 ### Installation
 no installation needed, just extract the release files to a directory and execute the related ShellyActionRouter binary for your system. 
